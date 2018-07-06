@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">Nguyen Car Dealers</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a href="/">Home</a></li>
+            <li><a href="/add">Add a car</a></li>
+            <li><a href="/addcategory">Add a category</a></li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <form action="/action_page.php"
+    th:action="@{/process}"
+    th:object="${car}"
+    method="post"
+          enctype="multipart/form-data">
+
+    <input type="hidden" th:field="*{id}"/>
+        <div class="form-group">
+            <label>Manufacturer</label>
+            <input type="text" th:field="*{manufacturer}" class="form-control"  placeholder="Enter a new manufacturer"/>
+            <span th:if="${#fields.hasErrors('manufacturer')}"
+                  th:errors="*{manufacturer}"></span>
+        </div>
+    <div class="form-group">
+        <label>Model</label>
+        <input type="text" th:field="*{model}" class="form-control"  placeholder="Enter a model"/>
+        <span th:if="${#fields.hasErrors('model')}"
+              th:errors="*{model}"></span>
+    </div>
+    <div class="form-group">
+        <label>Year</label>
+        <input type="text" th:field="*{year}" class="form-control"  placeholder="0"/>
+        <span th:if="${#fields.hasErrors('year')}"
+              th:errors="*{year}"></span>
+    </div>
+    <div class="form-group">
+        <label>MSRP</label>
+        <input type="text" th:field="*{msrp}" class="form-control"  placeholder="0.0"/>
+        <span th:if="${#fields.hasErrors('msrp')}"
+              th:errors="*{msrp}"></span>
+    </div>
+        <div class="form-group">
+            <label>Category Type:</label>
+            <input type="text" th:field="*{category}" class="form-control"/>
+
+            </select>
+            </div>
+
+    <br>
+<div class="form-group">
+    <label>Car Image</label>
+    <input type="file" name="Choose file" />
+</div>
+       <p>Choose a new photo or select the same one again.</p>
+        <button type="submit" class="btn btn-default">Submit</button>
+    </form>
+</div>
+</body>
+</html>
+
