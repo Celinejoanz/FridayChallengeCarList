@@ -26,11 +26,11 @@
 <div class="container">
 <div class="2" th:each ="car: ${cars}">
     <div th:if="${car.img}" !=" null">
-        <img th:src="${car.img}"/>
+        <img th:src="${car.img}" th:alt="${car.model}" width="50%"/>
     </div>
     <h4 class="text-center" th:inline="text">[[${car.year}]] [[${car.manufacturer}]] [[${car.model}]]</h4>
     <span th:inline="text"><strong>MSRP:</strong> [[${car.msrp}]]</span>
-    <span th:inline="text"><strong>Type:</strong> [[${car.msrp}]]</span>
+    <span th:inline="text"><strong>Type:</strong> [[${category.type}]]</span>
 
     <button type="button" class="btn btn-success"><a th:href="@{/update/{id}(id=${car.id})}">Update</a></button>
     <button type="button" class="btn btn-danger"><a th:href="@{/delete/{id}(id=${car.id})}">Delete</a></button>
@@ -38,7 +38,7 @@
 </div>
 </div>
 
-<div th:replace="base:: footer"></div>
+<footer th:replace="base:: footer"></footer>
 
 </body>
 </html>

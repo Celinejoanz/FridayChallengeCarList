@@ -24,9 +24,9 @@
 </nav>
 
 <div class="container">
-    <form action="/action_page.php"
+    <form action="#"
     th:action="@{/process}"
-    th:object="${car}"
+    th:object="${check}"
     method="post"
           enctype="multipart/form-data">
 
@@ -34,43 +34,40 @@
         <div class="form-group">
             <label>Manufacturer</label>
             <input type="text" th:field="*{manufacturer}" class="form-control"  placeholder="Enter a new manufacturer"/>
-            <span th:if="${#fields.hasErrors('manufacturer')}"
-                  th:errors="*{manufacturer}"></span>
+
         </div>
     <div class="form-group">
         <label>Model</label>
         <input type="text" th:field="*{model}" class="form-control"  placeholder="Enter a model"/>
-        <span th:if="${#fields.hasErrors('model')}"
-              th:errors="*{model}"></span>
+
     </div>
     <div class="form-group">
         <label>Year</label>
         <input type="text" th:field="*{year}" class="form-control"  placeholder="0"/>
-        <span th:if="${#fields.hasErrors('year')}"
-              th:errors="*{year}"></span>
+
     </div>
     <div class="form-group">
         <label>MSRP</label>
         <input type="text" th:field="*{msrp}" class="form-control"  placeholder="0.0"/>
-        <span th:if="${#fields.hasErrors('msrp')}"
-              th:errors="*{msrp}"></span>
+
     </div>
         <div class="form-group">
-            <label>Category Type:</label>
-            <input type="text" th:field="*{category}" class="form-control"/>
-
-            </select>
-            </div>
-
-    <br>
-<div class="form-group">
+            <label>Category Type</label>
+            <select class="form-control" th:field="*{Category_id}">
+                <option th:each="aCategory : ${categories}" th:value="${aCategory.id}"
+                        th:text="${aCategory.type}"></option></select></div><br/>
+        <div class="form-group">
     <label>Car Image</label>
-    <input type="file" name="Choose file" />
-</div>
+      <!--<div th:if="(${car.img}!=null)">
+                <img th:src="${car.img}" th:alt="${car.model}" width="50%"/>
+            </div>-->
+    <input type="file" name="Choose file" th:field="*{img}" class="form-control-file"/>
+        </div>
        <p>Choose a new photo or select the same one again.</p>
         <button type="submit" class="btn btn-default">Submit</button>
     </form>
 </div>
+<footer th:replace="base:: footer"></footer>
 </body>
 </html>
 

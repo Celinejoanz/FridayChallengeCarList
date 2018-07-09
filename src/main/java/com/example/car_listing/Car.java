@@ -12,21 +12,17 @@ public class Car {
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-    @NotNull
-    @Size(min=5)
     private String manufacturer;
 
-    @NotNull
-    @Size(min=5)
     private String model;
 
-
-    @Min(1900)
     private long year;
 
     private double msrp;
 
     private String img;
+
+    private long Category_id;
 
     public long getId() {
         return id;
@@ -76,4 +72,13 @@ public class Car {
         this.img = img;
     }
 
+    public long getCategory_id() {
+        return Category_id;
+    }
+
+    public void setCategory_id(long category_id) {
+        Category_id = category_id;
+    }
 }
+
+

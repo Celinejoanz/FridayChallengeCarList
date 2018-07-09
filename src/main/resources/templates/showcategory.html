@@ -24,17 +24,16 @@
 </nav>
 
 <div class="container">
-<div th:each="category: ${categories}">
-    <h1 th:inline="text">${category}</h1>
+    <h1 th:inline="text">[[${category.id}]] - [[${category.type}]]</h1>
     <button type="button" class="btn btn-success"><a th:href="@{/updatecategory/{id}(id=${category.id})}">Update</a></button>
     <button type="button" class="btn btn-danger"><a th:href="@{/deletecategory/{id}(id=${category.id})}">Delete</a></button>
 
 </div>
 
 
-</div>
+<br /> <br /> <br /> <br /> <br />
 
-<div th:replace="base:: footer"></div>
+<footer th:replace="base:: footer"></footer>
 </body>
 </html>
 

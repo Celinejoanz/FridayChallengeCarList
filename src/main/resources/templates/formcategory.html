@@ -25,22 +25,22 @@
 
 <div class="container">
     <form action="/action_page.php"
-          th:action="@{/process}"
+          th:action="@{/processCategory}"
           th:object="${category}"
-          method="post"
-          enctype="multipart/form-data">
-
+          method="post">
         <input type="hidden" th:field="*{id}"/>
         <div class="form-group">
             <label>Category Type</label>
-            <input type="text" th:field="*{category}" class="form-control"  placeholder="Enter a category"/>
-            <span th:if="${#fields.hasErrors('category')}"
-                  th:errors="*{category}"></span>
+            <input type="text" th:field="*{type}" class="form-control"  placeholder="Enter a category"/>
+            <span th:if="${#fields.hasErrors('type')}"
+                  th:errors="*{type}"></span>
         </div>
+        <button type="submit" class="btn btn-default">Submit</button>
     </form>
-    <button type="submit" class="btn btn-default">Submit</button>
+
 </div>
-    <div th:replace="base:: footer"></div>
+<br/><br/><br/><br/><br/><br/>
+    <footer th:replace="base:: footer"></footer>
 </body>
 </html>
 

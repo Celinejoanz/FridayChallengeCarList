@@ -29,57 +29,49 @@ public class HomeController {
     @RequestMapping("/")
     public String index(Model model){
         model.addAttribute("cars", carRepository.findAll());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "index";
     }
 
-    @GetMapping("/add")
+    @RequestMapping("/add")
     public String formCar(Model model){
-        model.addAttribute("car", new Car());
+        model.addAttribute("check", new Car());
+        model.addAttribute("categories", categoryRepository.findAll());
         return "formcar";
     }
 
-    @GetMapping("/addcategory")
-    public String formCategory(Model model){
-        model.addAttribute("category", new Category());
-        return "formcategory";
-    }
-
-
-    @PostMapping("/processCategory")
-    public String processCategory(@Valid Category category, BindingResult result){
-        if(result.hasErrors()){
-            return "formcategory";
-        }
-        categoryRepository.save(category);
-        return "redirect:/";
-    }
-
     @PostMapping("/process")
-    public String processCar(@ModelAttribute @Valid Car car, @RequestParam("file")MultipartFile file, BindingResult result){
-        if(file.isEmpty() || (result.hasErrors())){
-            return "return:/add";
+    public String processCar( @ModelAttribute Car check, @RequestParam("file")MultipartFile file){
+        if(file.isEmpty()){
+            return "redirect:/add";
         }
         try{
             Map uploadResult= cloudc.upload(file.getBytes(),
                     ObjectUtils.asMap("resourcetype", "auto"));
-            car.setImg(uploadResult.get("url").toString());
-            carRepository.save(car);
-        }catch (IOException e){
+            check.setImg(uploadResult.get("url").toString());
+
+            carRepository.save(check);
+
+        }catch(IOException e){
             e.printStackTrace();
-            return "return:/add";
+            return "redirect:/add";
         }
         return "redirect:/";
     }
 
     @RequestMapping("/detail/{id}")
     public String showcar(@PathVariable("id") long id, Model model){
-        model.addAttribute("car", carRepository.findById(id).get());
+        Car car = carRepository.findById(id).get();
+        Category category = categoryRepository.findById(car.getCategory_id()).get();
+        model.addAttribute("car", car);
+        model.addAttribute("Category", category);
         return "showcar";
     }
 
     @RequestMapping("/update/{id}")
     public String updatecar(@PathVariable("id") long id, Model model){
         model.addAttribute("car", carRepository.findById(id));
+        model.addAttribute("categories", categoryRepository.findAll());
         return "formcar";
     }
 
@@ -89,15 +81,34 @@ public class HomeController {
         return "redirect:/";
     }
 
+
+
+
+    @GetMapping("/addcategory")
+    public String formCategory(Model model){
+        model.addAttribute("category", new Category());
+        return "formcategory";
+    }
+
+
+    @PostMapping("/processCategory")
+    public String processCategory(@ModelAttribute("category") Category category, BindingResult result){
+        if(result.hasErrors()){
+            return "formcategory";
+        }
+        categoryRepository.save(category);
+        return "redirect:/";
+    }
+
     @RequestMapping("/detailcategory/{id}")
     public String showcategory(@PathVariable("id") long id, Model model){
-        model.addAttribute("category", categoryRepository.findById(id).get());
+        model.addAttribute("categories", categoryRepository.findById(id).get());
         return "showcategory";
     }
 
     @RequestMapping("/updatecategory/{id}")
     public String updatecategory(@PathVariable("id") long id, Model model){
-        model.addAttribute("category", categoryRepository.findById(id));
+        model.addAttribute("categories", categoryRepository.findById(id));
         return "formcategory";
     }
 

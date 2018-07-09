@@ -6,20 +6,13 @@ import java.util.Set;
 @Entity
 public class Category {
 
-    private String category;
+    //private String category;
 
     @Id
     @GeneratedValue(strategy= GenerationType.AUTO)
     private long id;
 
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
+    private String type;
 
     public long getId() {
         return id;
@@ -29,4 +22,11 @@ public class Category {
         this.id = id;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
